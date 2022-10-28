@@ -1,5 +1,3 @@
-class Props
-{
-    public :
-    virtual void UpdateTexture(){};
-};
+#include "Props.hpp"
+
+void Props::UpdateTexture(){}
