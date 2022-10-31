@@ -1,10 +1,4 @@
 #include "GameManager.hpp"
-#include "Initializer.hpp"
-#include "load_media.hpp"
-#include "Data.hpp"
-#include <vector>
-#include <string>
-
 
 GameManager::GameManager(){
     //If No error to load sdl
@@ -52,9 +46,9 @@ void GameManager::updateWindow(SDL_Rect rect){
     SDL_RenderClear(renderer);
     //render sprite SDL_RenderCopyEx(renderer,texture_to_render,NULL,&rect,NULL,NULL,SDL_FLIP_NONE);
     for (Player CurrentPlayer : Players) {
-        if(CurrentPlayer.idle==NULL) continue;
-        rect = {xCoordinate, yCoordinate, screen_width/(*(CurrentPlayer.idle)->w), screen_height};
-        SDL_RenderCopyEx(renderer,Players->idle,NULL,&rect,0,NULL,SDL_FLIP_NONE);
+        if(CurrentPlayer.idle.first==NULL) continue;
+        rect = {xCoordinate, yCoordinate, screen_width / *(getTextureWidth(&CurrentPlayer.idle)), screen_width / *(getTextureHeight(&CurrentPlayer.idle))};
+        SDL_RenderCopyEx(renderer,CurrentPlayer.idle.first,NULL,&rect,0,NULL,SDL_FLIP_NONE);
     }
     //update new frame
     SDL_RenderPresent(renderer);

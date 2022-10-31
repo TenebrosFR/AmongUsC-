@@ -1,6 +1,5 @@
-#include "load_media.hpp"
+#pragma once
 #include "utils.h"
-#include "Props.hpp"
 #include <vector>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -10,13 +9,14 @@
 class Player : Props
 {
     public :
-        SDL_Texture* idle;
-        std::vector<SDL_Texture *> movement;
+        TextureWithSize idle;
+        std::vector<TextureWithSize> movement;
         direction currentDirection = RIGHT;
-
         Player(SDL_Renderer *renderer);
 
         Player();	
         
         void UpdateTexture() override ;
+
+        void test();
 };

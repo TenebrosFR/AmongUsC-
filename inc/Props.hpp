@@ -1,3 +1,5 @@
+#pragma once
+
 #include "load_media.hpp"
 
 class Props

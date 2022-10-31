@@ -1,5 +1,4 @@
-#include "load_media.hpp"
-#include "GameManager.cpp"
+#include "GameManager.hpp"
 
 int main(int argc, char **argv)
 {

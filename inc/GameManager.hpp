@@ -1,8 +1,8 @@
+#pragma once
 #include "Initializer.hpp"
-#include "load_media.hpp"
 #include "Data.hpp"
-#include <vector>
-#include <string>
+#include <SDL.h>
+#include <SDL_image.h>
 
 class GameManager : Data,Initializer
 {
