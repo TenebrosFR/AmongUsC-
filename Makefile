@@ -18,7 +18,7 @@ INC_DIR				= inc
 # Le nom du dossier ou vous mettez vos binaires
 BIN_DIR				= bin
 # La liste des fichiers a compiler
-SRCS				= main.cpp GameManager.cpp Data.cpp Initializer.cpp Player.cpp Props.cpp load_media.cpp
+SRCS				= main.cpp GameManager.cpp Data.cpp Initializer.cpp Player.cpp Props.cpp load_media.cpp utils.cpp
 OBJS				= ${addprefix ${BIN_DIR}/,${SRCS:.cpp=.o}}
 CC					= g++
 # Vos flags de compilation
