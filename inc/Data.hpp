@@ -8,6 +8,11 @@
 class Data
 {
     public :
+        //FPS
+        Uint64 fps_lasttime = SDL_GetTicks64();
+        Uint64 fps_current;
+        Uint64 fps_frames = 0;
+        //
         int screen_width;
         int screen_height;
         SDL_Rect rect ;

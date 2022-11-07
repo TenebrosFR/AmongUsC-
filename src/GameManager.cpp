@@ -1,4 +1,6 @@
 #include "GameManager.hpp"
+#include "GameManager.hpp"
+#define FPS_INTERVAL 1 //seconds.
 
 GameManager::GameManager(){
     //If No error to load sdl
@@ -11,7 +13,14 @@ GameManager::GameManager(){
 
 void GameManager::whilePlaying(){
     while (!quit)
-    {
+    {	
+        //Calcul FPS
+        if (fps_lasttime < SDL_GetTicks64() - FPS_INTERVAL*1000)
+            {
+                fps_lasttime = SDL_GetTicks64();
+                fps_current = fps_frames;
+                fps_frames = 0;
+            }
         while (SDL_PollEvent(&e))
         {
             if (e.type == SDL_QUIT)
@@ -36,9 +45,9 @@ void GameManager::whilePlaying(){
                     break;
                 }
             }
-            // if(texture_to_render!=NULL)
-            updateWindow(rect);
         }
+        updateWindow(rect);
+            fps_frames++;
     }
 }
 void GameManager::updateWindow(SDL_Rect rect){
