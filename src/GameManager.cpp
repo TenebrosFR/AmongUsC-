@@ -6,7 +6,7 @@ GameManager::GameManager(){
     //If No error to load sdl
     if (!init_SDL(&window,&window_surface,&renderer,&screen_height,&screen_width)) return;
     //create current player
-    Players[0] = Player(renderer);
+    CurrentPlayer = Player(renderer);
     //start game
     Start();
 }
@@ -33,9 +33,11 @@ void GameManager::whilePlaying(){
                 {
                 case SDLK_q:
                     xCoordinate--;
+                    newDirection = LEFT;
                     break;
                 case SDLK_d:
                     xCoordinate++;
+                    newDirection = RIGHT;
                     break;
                 case SDLK_s:
                     yCoordinate++;
@@ -53,12 +55,10 @@ void GameManager::whilePlaying(){
 void GameManager::updateWindow(SDL_Rect rect){
     //clear screen
     SDL_RenderClear(renderer);
-    //render sprite SDL_RenderCopyEx(renderer,texture_to_render,NULL,&rect,NULL,NULL,SDL_FLIP_NONE);
-    for (Player CurrentPlayer : Players) {
-        if(CurrentPlayer.idle.first==NULL) continue;
-        rect = {xCoordinate, yCoordinate, screen_width / *(getTextureWidth(&CurrentPlayer.idle)), screen_width / *(getTextureHeight(&CurrentPlayer.idle))};
-        SDL_RenderCopyEx(renderer,CurrentPlayer.idle.first,NULL,&rect,0,NULL,SDL_FLIP_NONE);
-    }
+    CurrentPlayer.UpdatePosition(newDirection);
+    rect = {CurrentPlayer.currentPosition.X_COORDINATE, CurrentPlayer.currentPosition.Y_COORDINATE, screen_width / (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH), screen_width / (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)};
+    SDL_RenderCopyEx(renderer,CurrentPlayer.GetCurrentTexture().first,NULL,&rect,0,NULL,(newDirection == LEFT) ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+    
     //update new frame
     SDL_RenderPresent(renderer);
 }

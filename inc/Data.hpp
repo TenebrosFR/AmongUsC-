@@ -28,7 +28,8 @@ class Data
         int xCoordinate = 0;
         int yCoordinate = 0;
         int offset = 0;
-        Player Players[8] ;
+        Player CurrentPlayer ;
+        direction newDirection;
         bool quit = false;
         //constructor
         Data();
