@@ -48,6 +48,8 @@ void GameManager::whilePlaying(){
                 }
             }
         }
+        std::string sFps = std::to_string(fps_current);
+        SDL_SetWindowTitle(window,sFps.c_str());
         updateWindow(rect);
             fps_frames++;
     }

@@ -9,8 +9,8 @@ bool Initializer::init_SDL(SDL_Window **window, SDL_Surface **window_surface,SDL
 	}
 	SDL_DisplayMode DM;
 	SDL_GetCurrentDisplayMode(0, &DM); 
-    *screen_width = DM.w;
-    *screen_height = DM.h;
+    *screen_width = DM.w-100;
+    *screen_height = DM.h-100;
 	*window = init_window(*screen_height,*screen_width);
 	*renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_SetRenderDrawColor(*renderer, 0xFF, 0xFF, 0xFF, 0xFF);
