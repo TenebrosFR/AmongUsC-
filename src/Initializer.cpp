@@ -1,22 +1,20 @@
 #include "Initializer.hpp"
 
-bool Initializer::init_SDL(SDL_Window **window, /*std::vector<SDL_Texture *> *texture,*/ SDL_Surface **window_surface,SDL_Renderer **renderer,int screen_height,int screen_width)
+bool Initializer::init_SDL(SDL_Window **window, SDL_Surface **window_surface,SDL_Renderer **renderer,int *screen_height,int *screen_width)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		std::cerr << "SDL could not initialize. SDL_Error: " << SDL_GetError() << '\n';
 		return false;
 	}
-	*window = init_window(screen_height,screen_width);
+	SDL_DisplayMode DM;
+	SDL_GetCurrentDisplayMode(0, &DM); 
+    *screen_width = DM.w;
+    *screen_height = DM.h;
+	*window = init_window(*screen_height,*screen_width);
 	*renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_SetRenderDrawColor(*renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	*window_surface = init_window_surface(*window);
-	// (*texture)[SPACE] = load_media_texture("ratio.bmp",*renderer ,true);
-	// (*texture)[UP] = load_media_texture("up.bmp",*renderer ,true);
-	// (*texture)[DOWN] = load_media_texture("down.bmp",*renderer ,true);
-	// (*texture)[RIGHT] = load_media_texture("right.bmp",*renderer ,true);
-	// (*texture)[LEFT] = load_media_texture("left.bmp",*renderer ,true);
-	//&& !((*texture)[UP] == NULL) && !((*texture)[DOWN] == NULL) && !((*texture)[RIGHT] == NULL) && !((*texture)[LEFT] == NULL)
 	return !(*window == NULL) && !(*window_surface == NULL) ;
 }
 

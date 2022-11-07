@@ -8,7 +8,6 @@
 class Data
 {
     public :
-        SDL_DisplayMode DM;
         int screen_width;
         int screen_height;
         SDL_Rect rect ;

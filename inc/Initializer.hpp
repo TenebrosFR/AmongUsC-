@@ -6,7 +6,7 @@
 class Initializer
 {
 public:
-	bool init_SDL(SDL_Window **window, /*std::vector<SDL_Texture *> *texture,*/ SDL_Surface **window_surface,SDL_Renderer **renderer,int screen_height,int screen_width);
+	bool init_SDL(SDL_Window **window,SDL_Surface **window_surface,SDL_Renderer **renderer,int *screen_height,int *screen_width);
 
 	SDL_Window *init_window(int screen_height,int screen_width);
 

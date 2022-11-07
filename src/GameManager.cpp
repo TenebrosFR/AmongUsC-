@@ -2,7 +2,7 @@
 
 GameManager::GameManager(){
     //If No error to load sdl
-    if (!init_SDL(&window/*,&texture*/,&window_surface,&renderer,screen_height,screen_width)) return;
+    if (!init_SDL(&window,&window_surface,&renderer,&screen_height,&screen_width)) return;
     //create current player
     Players[0] = Player(renderer);
     //start game
