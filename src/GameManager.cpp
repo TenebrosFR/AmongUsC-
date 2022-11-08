@@ -62,6 +62,9 @@ void GameManager::whilePlaying(){
                     isFullscreen=!isFullscreen;
                     break;
                 }
+                case SDLK_ESCAPE:
+                    quit=!quit;
+                    break;
             }
         }
         std::string sFps = std::to_string(fps_current);
