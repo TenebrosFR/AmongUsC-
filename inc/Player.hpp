@@ -12,15 +12,15 @@ class Player : Props
         TextureWithSize idle;
         std::vector<TextureWithSize> movement;
         Position currentPosition = Position(0,0);
-        int speed = 10;
-        int currentSprite = 0;
+        int speed;
+        int currentSprite;
         direction currentDirection = RIGHT;
         Player(SDL_Renderer *renderer);
 
         Player();	
         
         
-        TextureWithSize GetCurrentTexture();
+        TextureWithSize* GetCurrentTexture();
 
         void UpdatePosition(direction dir);
 };
