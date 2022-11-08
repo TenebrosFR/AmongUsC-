@@ -2,16 +2,20 @@
 
 Player::Player(SDL_Renderer *renderer)
 {
-    idle.first = load_media_texture("./Assets/img/Player-AmongUs/IndividualSprites/idle.png", renderer, true);
+    idle.first = load_media_texture("./Assets/img/Sprites/idle/01.png", renderer, true);
     SDL_QueryTexture(idle.first, NULL, NULL, &idle.TEXTURE_WIDTH, &idle.TEXTURE_HEIGHT);
+    idle.TEXTURE_WIDTH *=2;
+    idle.TEXTURE_HEIGHT *=2;
     currentSprite = 0;
     speed = 0.5;
-    for (int i = 1; i <= 12; i++)
+    for (int i = 1; i <= 4; i++)
     {
         std::string remplacement = std::to_string(i);
         if (i < 10)
             remplacement = "0" + std::to_string(i);
-        TextureWithSize movementFrame = CreateTextureWithSizeFromMedia("./Assets/img/Player-AmongUs/IndividualSprites/Walk/walkcolor00" + remplacement + ".png", renderer, true);
+        TextureWithSize movementFrame = CreateTextureWithSizeFromMedia("./Assets/img/Sprites/run/" + remplacement + ".png", renderer, true);
+        movementFrame.TEXTURE_WIDTH *=2;
+        movementFrame.TEXTURE_HEIGHT *=2;
         movement.push_back(movementFrame);
     }
 };
@@ -31,7 +35,7 @@ void Player::UpdatePosition(DoubleDirection givenDirection,double deltaSpeed)
     }
     //
     if (currentDirection.HORIZONTAL_DIRECTION == NONE && currentDirection.VERTICAL_DIRECTION == NONE )
-        currentSprite = 13;
+        currentSprite = 5;
     else if (currentSprite >= movement.size() )
         currentSprite = 0;
     // Choose horizontal direction
@@ -48,5 +52,5 @@ void Player::UpdatePosition(DoubleDirection givenDirection,double deltaSpeed)
 
 TextureWithSize Player::GetCurrentTexture()
 {
-    return (currentSprite == 13) ? idle : movement.at(currentSprite) ;
+    return (currentSprite == 5) ? idle : movement.at(currentSprite) ;
 };
