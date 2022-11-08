@@ -29,6 +29,10 @@ class Data
         Player CurrentPlayer ;
         direction newDirection;
         bool quit = false;
+        int speed = 100;
+        Uint64 time;
+        Uint64 clock;
+        double shift;
         //constructor
         Data();
 };
