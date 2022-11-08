@@ -36,19 +36,20 @@ void GameManager::whilePlaying(){
             }
             else if (e.type == SDL_KEYDOWN)
             {
+                CurrentPlayer.speed = 10;
                 switch (e.key.keysym.sym)
                 {
                 case SDLK_q:
                     newDirection = LEFT;
-                    CurrentPlayer.speed = 10;
                     break;
                 case SDLK_d:
                     newDirection = RIGHT;
-                    CurrentPlayer.speed = 10;
                     break;
                 case SDLK_s:
+                    newDirection = UP;
                     break;
                 case SDLK_z:
+                    newDirection = DOWN;
                     break;
                 case SDLK_f:
                     (!isFullscreen?SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN):SDL_SetWindowFullscreen(window, 0));

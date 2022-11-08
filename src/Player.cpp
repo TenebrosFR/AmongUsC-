@@ -16,14 +16,9 @@ Player::Player(SDL_Renderer *renderer){
 Player::Player(){};
 
 void Player::UpdatePosition(direction dir) {
-    // if(Player::currentDirection != dir && Player::currentDirection != DOWN && Player::currentDirection != UP){
-        // currentSprite = 0;
-        currentDirection = dir;
-    // } 
-    // else {
-        currentSprite++;
-        if(currentSprite>=movement.size()) currentSprite = 0;
-    // }
+    currentDirection = dir;
+    currentSprite++;
+    if(currentSprite>=movement.size()) currentSprite = 0;
     switch(dir){
         case DOWN:
             currentPosition.Y_COORDINATE += -1 * speed ;
