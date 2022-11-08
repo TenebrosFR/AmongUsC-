@@ -25,8 +25,6 @@ class Data
         //events
         SDL_Event e;
         //elements
-        int xCoordinate = 0;
-        int yCoordinate = 0;
         int offset = 0;
         Player CurrentPlayer ;
         direction newDirection;

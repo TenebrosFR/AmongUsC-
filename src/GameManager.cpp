@@ -12,6 +12,7 @@ GameManager::GameManager(){
 
     //create current player
     CurrentPlayer = Player(renderer);
+    newDirection = LEFT;
     //start game
     Start();
 }
@@ -26,6 +27,7 @@ void GameManager::whilePlaying(){
                 fps_current = fps_frames;
                 fps_frames = 0;
             }
+        CurrentPlayer.speed = 0;
         while (SDL_PollEvent(&e))
         {
             if (e.type == SDL_QUIT)
@@ -37,18 +39,16 @@ void GameManager::whilePlaying(){
                 switch (e.key.keysym.sym)
                 {
                 case SDLK_q:
-                    xCoordinate--;
                     newDirection = LEFT;
+                    CurrentPlayer.speed = 10;
                     break;
                 case SDLK_d:
-                    xCoordinate++;
                     newDirection = RIGHT;
+                    CurrentPlayer.speed = 10;
                     break;
                 case SDLK_s:
-                    yCoordinate++;
                     break;
                 case SDLK_z:
-                    yCoordinate--;
                     break;
                 case SDLK_f:
                     (!isFullscreen?SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN):SDL_SetWindowFullscreen(window, 0));
@@ -67,11 +67,10 @@ void GameManager::updateWindow(SDL_Rect rect){
     //clear screen
     SDL_RenderClear(renderer);
     CurrentPlayer.UpdatePosition(newDirection);
-    rect = {CurrentPlayer.currentPosition.X_COORDINATE, CurrentPlayer.currentPosition.Y_COORDINATE, screen_width / (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH), screen_width / (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)};
-    SDL_RenderCopyEx(renderer,CurrentPlayer.GetCurrentTexture().first,NULL,&rect,0,NULL,(newDirection == LEFT) ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
-    std::cout << SDL_GetError() << std::endl;
+    rect = {CurrentPlayer.currentPosition.X_COORDINATE, CurrentPlayer.currentPosition.Y_COORDINATE, (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH), (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)};
+    SDL_RenderCopyEx(renderer,CurrentPlayer.GetCurrentTexture().first,NULL,&rect,0,NULL,(newDirection == LEFT) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     //update new frame
-    // SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer);
 }
 int GameManager::Start()
 {       
