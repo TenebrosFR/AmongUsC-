@@ -8,5 +8,5 @@ class Props
     virtual ~Props();
 
     virtual TextureWithSize GetCurrentTexture()=0;
-    virtual void UpdatePosition(direction dir)=0;
+    virtual void UpdatePosition(std::pair<direction,direction> dir)=0;
 };

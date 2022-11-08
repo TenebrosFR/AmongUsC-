@@ -14,7 +14,7 @@ class Player : Props
         Position currentPosition = Position(0,0);
         int speed;
         int currentSprite;
-        direction currentDirection = RIGHT;
+        DoubleDirection currentDirection;
         Player(SDL_Renderer *renderer);
 
         Player();	
@@ -22,5 +22,5 @@ class Player : Props
         
         TextureWithSize GetCurrentTexture();
 
-        void UpdatePosition(direction dir);
+        void UpdatePosition(DoubleDirection dir);
 };

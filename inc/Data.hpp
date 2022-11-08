@@ -8,10 +8,6 @@
 class Data
 {
     public :
-        //FPS
-        Uint64 fps_lasttime = SDL_GetTicks64();
-        Uint64 fps_current;
-        Uint64 fps_frames = 0;
         //
         int screen_width;
         int screen_height;
@@ -27,12 +23,13 @@ class Data
         //elements
         int offset = 0;
         Player CurrentPlayer ;
-        direction newDirection;
+        DoubleDirection newDirection;
         bool quit = false;
         int speed = 100;
+        //Time
         Uint64 time;
-        Uint64 clock;
         double shift;
+        Uint64 clock;
         //constructor
         Data();
 };

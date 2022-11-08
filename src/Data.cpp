@@ -1,4 +1,6 @@
 #include "Data.hpp"
 
-Data::Data(){}
+Data::Data(){ 
+    clock = SDL_GetTicks64();
+};
 
