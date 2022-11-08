@@ -15,6 +15,7 @@ GameManager::GameManager(){
     newDirection = LEFT;
     //start game
     Start();
+    clock = SDL_GetTicks64();
 }
 
 void GameManager::whilePlaying(){
@@ -27,6 +28,11 @@ void GameManager::whilePlaying(){
                 fps_current = fps_frames;
                 fps_frames = 0;
             }
+
+        //time
+        time = SDL_GetTicks64()-clock;
+        shift = (double)speed*(double)(time/1000);
+        clock = SDL_GetTicks64();
         CurrentPlayer.speed = 0;
         while (SDL_PollEvent(&e))
         {
