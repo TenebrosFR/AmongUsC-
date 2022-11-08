@@ -22,6 +22,8 @@ class Data
         SDL_Event e;
         //elements
         int offset = 0;
+        //player
+        SDL_RendererFlip rotate ;
         Player CurrentPlayer ;
         DoubleDirection newDirection;
         bool quit = false;

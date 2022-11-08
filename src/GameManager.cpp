@@ -3,7 +3,6 @@
 
 GameManager::GameManager()
 {
-    std::cout << SDL_GetError() << std::endl;
     // If No error to load sdl
     if (!init_SDL(&window, &window_surface, &renderer, &screen_height, &screen_width))
         return;
@@ -24,13 +23,10 @@ void GameManager::whilePlaying()
     {
         // time
         time = SDL_GetTicks64() - clock;
-        shift = (double)speed * (double)(time / 1000);
+        shift = (double)CurrentPlayer.speed * (double)(time);
+
         clock = SDL_GetTicks64();
-        //
-        CurrentPlayer.speed = 0;
         newDirection = std::make_pair(NONE, NONE);
-        //
-        CurrentPlayer.speed = 10;
         // events
         SDL_PumpEvents();
         const Uint8 *state = SDL_GetKeyboardState(NULL);
@@ -67,9 +63,10 @@ void GameManager::updateWindow(SDL_Rect rect)
 {
     // clear screen
     SDL_RenderClear(renderer);
-    CurrentPlayer.UpdatePosition(newDirection);
-    rect = {CurrentPlayer.currentPosition.X_COORDINATE, CurrentPlayer.currentPosition.Y_COORDINATE, (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH), (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)};
-    SDL_RenderCopyEx(renderer, CurrentPlayer.GetCurrentTexture().first, NULL, &rect, 0, NULL, (newDirection.HORIZONTAL_DIRECTION == LEFT) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+    CurrentPlayer.UpdatePosition(newDirection,shift);
+    rect = {(int)CurrentPlayer.currentPosition.X_COORDINATE, (int)CurrentPlayer.currentPosition.Y_COORDINATE, (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH), (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)};
+    if(newDirection.HORIZONTAL_DIRECTION != NONE)   rotate =  newDirection.HORIZONTAL_DIRECTION == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    SDL_RenderCopyEx(renderer, CurrentPlayer.GetCurrentTexture().first, NULL, &rect, 0, NULL, rotate);
     // update new frame
     SDL_RenderPresent(renderer);
 }

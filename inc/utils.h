@@ -26,4 +26,4 @@ typedef std::pair<direction, direction> DoubleDirection;
 TextureWithSize CreateTextureWithSizeFromMedia(std::string file_name, SDL_Renderer *renderer, bool color_key);
 
 //
-typedef std::pair<int,int> Position;
+typedef std::pair<double,double> Position;
