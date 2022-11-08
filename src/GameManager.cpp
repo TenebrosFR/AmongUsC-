@@ -67,9 +67,9 @@ void GameManager::updateWindow(SDL_Rect rect){
     //clear screen
     SDL_RenderClear(renderer);
     CurrentPlayer.UpdatePosition(newDirection);
-    rect = {CurrentPlayer.currentPosition.X_COORDINATE, CurrentPlayer.currentPosition.Y_COORDINATE, screen_width / ((*CurrentPlayer.GetCurrentTexture()).TEXTURE_WIDTH), screen_width / ((*CurrentPlayer.GetCurrentTexture()).TEXTURE_HEIGHT)};
-    SDL_RenderCopyEx(renderer,(*CurrentPlayer.GetCurrentTexture()).first,NULL,&rect,0,NULL,(newDirection == LEFT) ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
-    
+    rect = {CurrentPlayer.currentPosition.X_COORDINATE, CurrentPlayer.currentPosition.Y_COORDINATE, screen_width / (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH), screen_width / (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)};
+    SDL_RenderCopyEx(renderer,CurrentPlayer.GetCurrentTexture().first,NULL,&rect,0,NULL,(newDirection == LEFT) ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+    std::cout << SDL_GetError() << std::endl;
     //update new frame
     // SDL_RenderPresent(renderer);
 }

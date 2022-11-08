@@ -43,9 +43,6 @@ void Player::UpdatePosition(direction dir) {
     }
 };
 
-TextureWithSize* Player::GetCurrentTexture(){
-    std::cout << "Size " << std::endl;
-    std::cout << movement.size()  << std::endl;
-    std::cout <<  "num " + currentSprite << std::endl;
-    return &(movement.at(currentSprite));
+TextureWithSize Player::GetCurrentTexture(){
+    return movement.at(currentSprite);
 };

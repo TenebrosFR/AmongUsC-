@@ -20,7 +20,7 @@ class Player : Props
         Player();	
         
         
-        TextureWithSize* GetCurrentTexture();
+        TextureWithSize GetCurrentTexture();
 
         void UpdatePosition(direction dir);
 };
