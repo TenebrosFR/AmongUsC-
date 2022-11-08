@@ -14,6 +14,8 @@ class GameManager : Data,Initializer
 
         void whilePlaying();
 
+        void InputManager(const Uint8* state);
+
         void updateWindow(SDL_Rect rect);
         
         int Start();

@@ -31,67 +31,38 @@ void GameManager::whilePlaying()
         newDirection = std::make_pair(NONE, NONE);
         //
         CurrentPlayer.speed = 10;
+        // events
+        SDL_PumpEvents();
         const Uint8 *state = SDL_GetKeyboardState(NULL);
-        // Choose horizontal direction
-        if (state[SDL_SCANCODE_A])
-            newDirection.HORIZONTAL_DIRECTION = LEFT;
-        else if (state[SDL_SCANCODE_D])
-            newDirection.HORIZONTAL_DIRECTION = RIGHT;
-        // Choose vertical direction
-        if (state[SDL_SCANCODE_S])
-            newDirection.VERTICAL_DIRECTION = UP;
-        else if (state[SDL_SCANCODE_W])
-            newDirection.VERTICAL_DIRECTION = DOWN;
-        // fullscreen
-        if (state[SDL_SCANCODE_F])
-        {
-<<<<<<< HEAD
-            (!isFullscreen ? SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN) : SDL_SetWindowFullscreen(window, 0));
-            isFullscreen = !isFullscreen;
-=======
-            if (e.type == SDL_QUIT)
-            {
-                quit = true;
-            }
-            else if (e.type == SDL_KEYDOWN)
-            {
-                CurrentPlayer.speed = 10;
-                switch (e.key.keysym.sym)
-                {
-                case SDLK_q:
-                    newDirection = LEFT;
-                    break;
-                case SDLK_d:
-                    newDirection = RIGHT;
-                    break;
-                case SDLK_s:
-                    newDirection = UP;
-                    break;
-                case SDLK_z:
-                    newDirection = DOWN;
-                    break;
-                case SDLK_f:
-                    (!isFullscreen?SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN):SDL_SetWindowFullscreen(window, 0));
-                    isFullscreen=!isFullscreen;
-                    break;
-                }
-                case SDLK_ESCAPE:
-                    quit=!quit;
-                    break;
-            }
->>>>>>> 759bb6cf1f5e718811035d31b59156dc7aab5856
-        }
-        // while (SDL_PollEvent(&e))
-        // {
-        //     if (e.type == SDL_QUIT) quit = true;
-        //     if (e.type != SDL_KEYDOWN) continue;
-
-        // }
+        InputManager(state);
+        //
         std::string sFps = std::to_string(time);
         SDL_SetWindowTitle(window, ("FPS = " + sFps).c_str());
+        //
         updateWindow(rect);
     }
-}
+};
+void GameManager::InputManager(const Uint8 *state)
+{
+    if (state[SDL_SCANCODE_ESCAPE])
+        quit = true;
+    // Choose horizontal direction
+    if (state[SDL_SCANCODE_A])
+        newDirection.HORIZONTAL_DIRECTION = LEFT;
+    else if (state[SDL_SCANCODE_D])
+        newDirection.HORIZONTAL_DIRECTION = RIGHT;
+    // Choose vertical direction
+    if (state[SDL_SCANCODE_S])
+        newDirection.VERTICAL_DIRECTION = UP;
+    else if (state[SDL_SCANCODE_W])
+        newDirection.VERTICAL_DIRECTION = DOWN;
+    // fullscreen
+    if (state[SDL_SCANCODE_F])
+    {
+        (!isFullscreen ? SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN) : SDL_SetWindowFullscreen(window, 0));
+        isFullscreen = !isFullscreen;
+    }
+};
 void GameManager::updateWindow(SDL_Rect rect)
 {
     // clear screen
