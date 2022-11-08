@@ -20,7 +20,7 @@ class Player : Props
         Player();	
         
         
-        TextureWithSize GetCurrentTexture() override ;
+        TextureWithSize GetCurrentTexture();
 
-        void UpdatePosition(direction dir) override;
+        void UpdatePosition(direction dir);
 };

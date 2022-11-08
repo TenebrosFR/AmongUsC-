@@ -5,7 +5,8 @@
 class Props
 {
     public :
-    virtual TextureWithSize GetCurrentTexture();
-    virtual void UpdatePosition(direction dir);
     virtual ~Props();
+
+    virtual TextureWithSize GetCurrentTexture()=0;
+    virtual void UpdatePosition(direction dir)=0;
 };

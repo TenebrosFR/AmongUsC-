@@ -6,14 +6,15 @@
 
 class GameManager : Data,Initializer
 {
-public:
-    
+    private:
+        bool isFullscreen=false;
 
-    GameManager();
+    public:
+        GameManager();
 
-    void whilePlaying();
+        void whilePlaying();
 
-    void updateWindow(SDL_Rect rect);
-    
-    int Start();
+        void updateWindow(SDL_Rect rect);
+        
+        int Start();
 };

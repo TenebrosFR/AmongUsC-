@@ -17,22 +17,22 @@
 // 	return converted_surface;
 // }
 
-// SDL_Surface *load_media_converted(std::string file_name, SDL_Surface *screen_surface)
-// {
-// 	SDL_Surface *surface = NULL;
-// 	SDL_Surface *converted_surface = NULL;
+SDL_Surface *load_media_converted(std::string file_name, SDL_Surface *screen_surface)
+{
+	SDL_Surface *surface = NULL;
+	SDL_Surface *converted_surface = NULL;
 
-// 	if ((surface = IMG_Load(file_name.c_str())) == NULL)
-// 	{
-// 		std::cerr << "Unable to load image " << file_name << ". SDL Error: " << IMG_GetError() << '\n';
-// 		return NULL;
-// 	}
-// 	if ((converted_surface = SDL_ConvertSurface(surface, screen_surface->format, 0)) == NULL)
-// 		std::cerr << "Unable to convert image " << file_name << ". SDL Error: " << SDL_GetError() << '\n';
+	if ((surface = IMG_Load(file_name.c_str())) == NULL)
+	{
+		std::cerr << "Unable to load image " << file_name << ". SDL Error: " << IMG_GetError() << '\n';
+		return NULL;
+	}
+	if ((converted_surface = SDL_ConvertSurface(surface, screen_surface->format, 0)) == NULL)
+		std::cerr << "Unable to convert image " << file_name << ". SDL Error: " << SDL_GetError() << '\n';
 	
-// 	SDL_FreeSurface(surface);
-// 	return converted_surface;
-// }
+	SDL_FreeSurface(surface);
+	return converted_surface;
+}
 
 SDL_Texture *load_media_texture(std::string file_name, SDL_Renderer *renderer, bool color_key)
 {
