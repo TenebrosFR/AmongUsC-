@@ -9,11 +9,10 @@ GameManager::GameManager()
 
     // set l'icon de la page
     SDL_Surface *icon = IMG_Load("./Assets/img/icon.png");
-    camera = {};
     SDL_SetWindowIcon(window, icon);
-
     // create current player
     CurrentPlayer = Player(renderer);
+    MyMap = Map(renderer);
     //create text
     // text=Text("Hello world",48,150,150,renderer,rectText);
     // start game
@@ -35,7 +34,7 @@ void GameManager::whilePlaying()
         double time = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time-clock_chrono).count() / 1000000.;
         clock_chrono = current_time;
 
-        shift = (double)CurrentPlayer.speed * time;
+        shift = (double)CurrentPlayer.speed *time;
         newDirection = std::make_pair(NONE, NONE);
 
         // events
@@ -46,7 +45,11 @@ void GameManager::whilePlaying()
         std::string sFps = std::to_string(1000./time);
         SDL_SetWindowTitle(window, ("FPS = " + sFps).c_str());
 
+        static Uint64 clock = SDL_GetTicks64(); 
+        
         updateWindow(rect);
+
+        
     }
 };
 void GameManager::InputManager(const Uint8 *state)
@@ -74,10 +77,16 @@ void GameManager::updateWindow(SDL_Rect rect)
 {
     // clear screen
     SDL_RenderClear(renderer);
-    CurrentPlayer.UpdatePosition(newDirection,shift);
-    rect = {(int)CurrentPlayer.currentPosition.X_COORDINATE, (int)CurrentPlayer.currentPosition.Y_COORDINATE, (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH), (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)};
-    if(newDirection.HORIZONTAL_DIRECTION != NONE)   rotate =  newDirection.HORIZONTAL_DIRECTION == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    //Update Camera Position
+    MyCam.UpdatePosition(newDirection,shift,Position(0,0));
+    CurrentPlayer.UpdatePosition(newDirection,shift,MyCam.currentPosition);
+    //map
+    rect = {(int)(MyMap.currentPosition.X_COORDINATE-MyCam.currentPosition.X_COORDINATE), (int)(MyMap.currentPosition.Y_COORDINATE-MyCam.currentPosition.Y_COORDINATE), (MyMap.GetCurrentTexture().TEXTURE_WIDTH), (MyMap.GetCurrentTexture().TEXTURE_HEIGHT)};
+    SDL_RenderCopyEx(renderer, MyMap.img.first, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
+    //player
+    rect = { (screen_width/2)-CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH,(screen_height/2)-CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT, (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH)*2, (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)*2};
     SDL_RenderCopyEx(renderer, CurrentPlayer.GetCurrentTexture().first, NULL, &rect, 0, NULL, rotate);
+    if(newDirection.HORIZONTAL_DIRECTION != NONE)   rotate =  newDirection.HORIZONTAL_DIRECTION == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     // SDL_RenderCopyEx(renderer, text.getTexture(), NULL, &rectText, 0, NULL, SDL_FLIP_NONE);
     // update new frame
     SDL_RenderPresent(renderer);

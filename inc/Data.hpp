@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Player.hpp"
+#include "Map.hpp"
+#include "Camera.hpp"
 #include <chrono>
 // #include "Text.hpp"
 
@@ -14,7 +16,6 @@ class Data
         int screen_width;
         int screen_height;
         SDL_Rect rect ;
-        SDL_Rect camera;
         //sdl
         SDL_Window *window = NULL;
         // std::vector<SDL_Texture *> texture;
@@ -28,6 +29,8 @@ class Data
         //player
         SDL_RendererFlip rotate ;
         Player CurrentPlayer ;
+        Map MyMap ;
+        Camera MyCam ;
         DoubleDirection newDirection;
         bool quit = false;
         int speed = 100;

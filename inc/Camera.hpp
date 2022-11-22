@@ -6,20 +6,15 @@
 #include <string> 
 #include "Props.hpp"
 
-class Player : Props
+class Camera : Props
 {
     public :
-        TextureWithSize idle;
-        std::vector<TextureWithSize> movement;
+        TextureWithSize img;
         Position currentPosition = Position(0,0);
         double speed;
-        int currentSprite;
-        DoubleDirection currentDirection;
-        Player(SDL_Renderer *renderer);
-
-        Player();	
-        
-        
+        Camera(SDL_Renderer *renderer);        
+        Camera();
+        ~Camera();
         TextureWithSize GetCurrentTexture();
 
         void UpdatePosition(DoubleDirection givenDirection,double deltaSpeed,Position cameraPosition);

@@ -22,35 +22,26 @@ Player::Player(SDL_Renderer *renderer)
 
 Player::Player(){};
 
-void Player::UpdatePosition(DoubleDirection givenDirection,double deltaSpeed)
+void Player::UpdatePosition(DoubleDirection givenDirection,double deltaspeed,Position cameraPosition)
 {
     //
     static Uint64 clock = SDL_GetTicks64(); 
     //
-    currentDirection = givenDirection;
+    currentPosition = givenDirection;
     //
     if((SDL_GetTicks64()-clock) > 50) {
         currentSprite++;
         clock = SDL_GetTicks64(); 
     }
     //
+    std::cout << currentDirection.second << std::endl;
     if (currentDirection.HORIZONTAL_DIRECTION == NONE && currentDirection.VERTICAL_DIRECTION == NONE )
-        currentSprite = 5;
+        currentSprite = movement.size();
     else if (currentSprite >= movement.size() )
         currentSprite = 0;
-    // Choose horizontal direction
-    if (currentDirection.HORIZONTAL_DIRECTION == LEFT)
-        currentPosition.X_COORDINATE += -deltaSpeed;
-    else if (currentDirection.HORIZONTAL_DIRECTION == RIGHT)
-        currentPosition.X_COORDINATE += deltaSpeed;
-    // Choose vertical direction
-    if (currentDirection.VERTICAL_DIRECTION == UP)
-        currentPosition.Y_COORDINATE += deltaSpeed;
-    else if (currentDirection.VERTICAL_DIRECTION == DOWN)
-        currentPosition.Y_COORDINATE += -deltaSpeed;
 };
 
 TextureWithSize Player::GetCurrentTexture()
 {
-    return (currentSprite == 5) ? idle : movement.at(currentSprite) ;
+    return (currentSprite == movement.size()) ? idle : movement.at(currentSprite) ;
 };
