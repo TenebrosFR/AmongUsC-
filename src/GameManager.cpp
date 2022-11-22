@@ -10,12 +10,14 @@ GameManager::GameManager()
     // set l'icon de la page
     SDL_Surface *icon = IMG_Load("./Assets/img/icon.png");
     camera = {};
+    SDL_SetWindowTitle(window, "Among Us C--");
     SDL_SetWindowIcon(window, icon);
 
     // create current player
     CurrentPlayer = Player(renderer);
     //create text
-    // text=Text("Hello world",48,150,150,renderer,rectText);
+    SDL_Color color{167, 66, 211, 255};
+    text=Text("Hello world",24,screen_width-250,50,renderer, color);
     // start game
     Start();
 }
@@ -44,7 +46,7 @@ void GameManager::whilePlaying()
         InputManager(state);
         //
         std::string sFps = std::to_string(1000./time);
-        SDL_SetWindowTitle(window, ("FPS = " + sFps).c_str());
+        text.ChangeText(("FPS = " + sFps).c_str(),text.getX(),text.getY(),renderer,text.getColor());
 
         updateWindow(rect);
     }
@@ -78,7 +80,7 @@ void GameManager::updateWindow(SDL_Rect rect)
     rect = {(int)CurrentPlayer.currentPosition.X_COORDINATE, (int)CurrentPlayer.currentPosition.Y_COORDINATE, (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH), (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)};
     if(newDirection.HORIZONTAL_DIRECTION != NONE)   rotate =  newDirection.HORIZONTAL_DIRECTION == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     SDL_RenderCopyEx(renderer, CurrentPlayer.GetCurrentTexture().first, NULL, &rect, 0, NULL, rotate);
-    // SDL_RenderCopyEx(renderer, text.getTexture(), NULL, &rectText, 0, NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(renderer, text.getTexture(), NULL, text.getRect(), 0, NULL, SDL_FLIP_NONE);
     // update new frame
     SDL_RenderPresent(renderer);
 }

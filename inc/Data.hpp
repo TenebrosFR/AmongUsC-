@@ -4,8 +4,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Player.hpp"
+#include "Text.hpp"
 #include <chrono>
-// #include "Text.hpp"
 
 class Data
 {
@@ -37,8 +37,7 @@ class Data
         //Uint64 clock;
         std::chrono::time_point<std::chrono::high_resolution_clock> clock_chrono;
         //Text
-        // Text text;
-        // SDL_Rect rectText;
+        Text text;
         //constructor
         Data();
 };
