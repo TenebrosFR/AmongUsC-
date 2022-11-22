@@ -14,6 +14,7 @@ class Data
         int screen_width;
         int screen_height;
         SDL_Rect rect ;
+        SDL_Rect camera;
         //sdl
         SDL_Window *window = NULL;
         // std::vector<SDL_Texture *> texture;
