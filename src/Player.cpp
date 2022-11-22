@@ -34,7 +34,6 @@ void Player::UpdatePosition(DoubleDirection givenDirection,double deltaspeed,Pos
         clock = SDL_GetTicks64(); 
     }
     //
-    std::cout << currentDirection.second << std::endl;
     if (currentDirection.HORIZONTAL_DIRECTION == NONE && currentDirection.VERTICAL_DIRECTION == NONE )
         currentSprite = movement.size();
     else if (currentSprite >= movement.size() )

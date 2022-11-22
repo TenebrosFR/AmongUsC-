@@ -6,6 +6,7 @@
 #include "Player.hpp"
 #include "Map.hpp"
 #include "Camera.hpp"
+#include "Text.hpp"
 #include <chrono>
 // #include "Text.hpp"
 
@@ -40,7 +41,7 @@ class Data
         //Uint64 clock;
         std::chrono::time_point<std::chrono::high_resolution_clock> clock_chrono;
         //Text
-        // Text text;
+        Text text;
         // SDL_Rect rectText;
         //constructor
         Data();

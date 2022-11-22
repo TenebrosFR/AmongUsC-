@@ -14,7 +14,8 @@ GameManager::GameManager()
     CurrentPlayer = Player(renderer);
     MyMap = Map(renderer);
     //create text
-    // text=Text("Hello world",48,150,150,renderer,rectText);
+    SDL_Color color{167, 66, 211, 255};
+    text=Text("Hello world",24,screen_width-250,50,renderer, color);
     // start game
     Start();
 }
@@ -45,6 +46,7 @@ void GameManager::whilePlaying()
         std::string sFps = std::to_string(1000./time);
         SDL_SetWindowTitle(window, ("FPS = " + sFps).c_str());
 
+        text.ChangeText(("FPS = " + sFps).c_str(),text.getX(),text.getY(),renderer,text.getColor());
         static Uint64 clock = SDL_GetTicks64(); 
         
         updateWindow(rect);
@@ -87,7 +89,7 @@ void GameManager::updateWindow(SDL_Rect rect)
     rect = { (screen_width/2)-CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH,(screen_height/2)-CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT, (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH)*2, (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)*2};
     SDL_RenderCopyEx(renderer, CurrentPlayer.GetCurrentTexture().first, NULL, &rect, 0, NULL, rotate);
     if(newDirection.HORIZONTAL_DIRECTION != NONE)   rotate =  newDirection.HORIZONTAL_DIRECTION == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-    // SDL_RenderCopyEx(renderer, text.getTexture(), NULL, &rectText, 0, NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(renderer, text.getTexture(), NULL, text.getRect(), 0, NULL, SDL_FLIP_NONE);
     // update new frame
     SDL_RenderPresent(renderer);
 }
