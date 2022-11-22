@@ -8,7 +8,7 @@ Player::Player(SDL_Renderer *renderer)
     idle.TEXTURE_HEIGHT *=2;
     currentSprite = 0;
     speed = 0.5;
-    for (int i = 1; i <= 4; i++)
+    for (int i = 1; i <= 7; i++)
     {
         std::string remplacement = std::to_string(i);
         if (i < 10)
