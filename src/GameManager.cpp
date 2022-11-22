@@ -9,6 +9,7 @@ GameManager::GameManager()
 
     // set l'icon de la page
     SDL_Surface *icon = IMG_Load("./Assets/img/icon.png");
+    camera = {};
     SDL_SetWindowIcon(window, icon);
 
     // create current player

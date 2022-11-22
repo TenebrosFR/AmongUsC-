@@ -5,3 +5,4 @@ Makefile
 .vscode/c_cpp_properties.json
 Makefile
 SDL2_ttf.dll
+*.json
