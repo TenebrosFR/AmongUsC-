@@ -13,6 +13,8 @@ GameManager::GameManager()
 
     // create current player
     CurrentPlayer = Player(renderer);
+    //create text
+    // text=Text("Hello world",48,150,150,renderer,rectText);
     // start game
     Start();
 }
@@ -22,19 +24,27 @@ void GameManager::whilePlaying()
     while (!quit)
     {
         // time
-        time = SDL_GetTicks64() - clock;
-        shift = (double)CurrentPlayer.speed * (double)(time);
+        // time = SDL_GetTicks64() - clock;
+        
 
-        clock = SDL_GetTicks64();
+        // clock = SDL_GetTicks64();
+        
+        std::chrono::time_point<std::chrono::high_resolution_clock> current_time;
+        current_time= std::chrono::high_resolution_clock::now();
+        double time = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time-clock_chrono).count() / 1000000.;
+        clock_chrono = current_time;
+
+        shift = (double)CurrentPlayer.speed * time;
         newDirection = std::make_pair(NONE, NONE);
+
         // events
         SDL_PumpEvents();
         const Uint8 *state = SDL_GetKeyboardState(NULL);
         InputManager(state);
         //
-        std::string sFps = std::to_string(time);
+        std::string sFps = std::to_string(1000./time);
         SDL_SetWindowTitle(window, ("FPS = " + sFps).c_str());
-        //
+
         updateWindow(rect);
     }
 };
@@ -67,6 +77,7 @@ void GameManager::updateWindow(SDL_Rect rect)
     rect = {(int)CurrentPlayer.currentPosition.X_COORDINATE, (int)CurrentPlayer.currentPosition.Y_COORDINATE, (CurrentPlayer.GetCurrentTexture().TEXTURE_WIDTH), (CurrentPlayer.GetCurrentTexture().TEXTURE_HEIGHT)};
     if(newDirection.HORIZONTAL_DIRECTION != NONE)   rotate =  newDirection.HORIZONTAL_DIRECTION == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     SDL_RenderCopyEx(renderer, CurrentPlayer.GetCurrentTexture().first, NULL, &rect, 0, NULL, rotate);
+    // SDL_RenderCopyEx(renderer, text.getTexture(), NULL, &rectText, 0, NULL, SDL_FLIP_NONE);
     // update new frame
     SDL_RenderPresent(renderer);
 }

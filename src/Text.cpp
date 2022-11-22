@@ -1,6 +1,6 @@
 #include "Text.hpp"
 
-Text::Text(const char* _sentence, int size, int x, int y, SDL_Renderer *&renderer){
+Text::Text(const char* _sentence, int size, int x, int y, SDL_Renderer *&renderer, SDL_Rect rect){
     TTF_Init();
     TTF_Font * font = TTF_OpenFont("arial.ttf", size);
     int text_width;
@@ -12,8 +12,4 @@ Text::Text(const char* _sentence, int size, int x, int y, SDL_Renderer *&rendere
     rect= {x, y,150,150};
     SDL_FreeSurface(surface);
     TTF_CloseFont(font);
-}
-
-void Text::UpdateText(SDL_Renderer *&renderer){
-    SDL_RenderCopyEx(renderer,texture,NULL,&rect,0,NULL,SDL_FLIP_NONE);
 }
